@@ -31,40 +31,22 @@ requestStream.subscribe(function(requestUrl){
     .publish()
     .refCount();
 
-  var user1SuggestionStream = close1ClickStream
-    .startWith('startup click')
-    .combineLatest(responseStream,
-      function(click, userList){
-        return userList[Math.floor(Math.random() * userList.length)];
-      })
-    .merge(refreshClickStream.map(function(){
-      return null;
-    }))
-    .startWith(null);
+  function makeSuggestionStream(closeButtonStream) {
+    return closeButtonStream
+      .startWith('startup click')
+      .combineLatest(responseStream,
+        function(click, userList){
+          return userList[Math.floor(Math.random() * userList.length)];
+        })
+      .merge(refreshClickStream.map(function(){
+        return null;
+      }))
+      .startWith(null);
+  }
 
-  var user2SuggestionStream = close2ClickStream
-    .startWith('startup click')
-    .combineLatest(responseStream,
-      function(click, userList){
-        return userList[Math.floor(Math.random() * userList.length)];
-      })
-    .merge(refreshClickStream.map(function(){
-      return null;
-    }))
-    .startWith(null);
-
-  var user3SuggestionStream = close3ClickStream
-    .startWith('startup click')
-    .combineLatest(responseStream,
-      function(click, userList){
-        return userList[Math.floor(Math.random() * userList.length)];
-      })
-    .merge(refreshClickStream.map(function(){
-      return null;
-    }))
-    .startWith(null);
-
-
+  var user1SuggestionStream = makeSuggestionStream(close1ClickStream);
+  var user2SuggestionStream = makeSuggestionStream(close2ClickStream);
+  var user3SuggestionStream = makeSuggestionStream(close3ClickStream);
 
 
   user1SuggestionStream.subscribe(function(user1) {
