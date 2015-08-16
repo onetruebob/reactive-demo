@@ -9,6 +9,7 @@
   "author": "Bob Owen",
   "license": "ISC",
   "dependencies": {
+    "jquery": "^2.1.4",
     "rx": "^3.0.1"
   }
 }
