@@ -1,0 +1,14 @@
+{
+  "name": "reactive",
+  "version": "1.0.0",
+  "description": "Demo for trying reactive programming. Based on an article by Staltz on github.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bob Owen",
+  "license": "ISC",
+  "dependencies": {
+    "rx": "^3.0.1"
+  }
+}
