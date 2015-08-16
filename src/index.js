@@ -1,14 +1,16 @@
 var requestStream = Rx.Observable.just('https://api.github.com/users');
 
 requestStream.subscribe(function(requestUrl){
-  var responseStream = Rx.Observable.create(function(observer) {
-    $.getJSON(requestUrl)
-      .done(function(response) { observer.onNext(response); })
-      .fail(function(jqXHR, status, error) { observer.onError(error); })
-      .always(function() { observer.onCompleted(); });
-  });
+  var responseStream = requestStream
+    .flatMap(function(requestUrl) {
+      return Rx.Observable.fromPromise($.getJSON(requestUrl));
+    });
 
   responseStream.subscribe(function(response) {
-    debugger;
+    renderThreeUsers(response);
   });
 });
+
+function renderThreeUsers(users) {
+  console.log(users[1], users[2], users[3]);
+}
