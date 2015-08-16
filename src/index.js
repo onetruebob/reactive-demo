@@ -27,7 +27,9 @@ requestStream.subscribe(function(requestUrl){
       var userRequest = $.ajax(requestUrl);
 
       return Rx.Observable.fromPromise(userRequest);
-    });
+    })
+    .publish()
+    .refCount();
 
   var user1SuggestionStream = close1ClickStream
     .startWith('startup click')
