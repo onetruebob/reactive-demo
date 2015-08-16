@@ -16,16 +16,59 @@ requestStream.subscribe(function(requestUrl){
       return Rx.Observable.fromPromise($.getJSON(requestUrl));
     });
 
-  responseStream.subscribe(function(response) {
-    renderThreeUsers(response);
+  var user1SuggestionStream = responseStream
+    .map(function(usersList){
+      //Pick a random user from this list
+      return usersList[Math.floor(Math.random() * usersList.length)];
+    })
+    .merge(refreshClickStream.map(function(){
+      return null;
+    }));
+
+  var user2SuggestionStream = responseStream
+    .map(function(usersList){
+      //Pick a random user from this list
+      return usersList[Math.floor(Math.random() * usersList.length)];
+    })
+    .merge(refreshClickStream.map(function(){
+      return null;
+    }));
+
+
+  var user3SuggestionStream = responseStream
+    .map(function(usersList){
+      //Pick a random user from this list
+      return usersList[Math.floor(Math.random() * usersList.length)];
+    })
+    .merge(refreshClickStream.map(function(){
+      return null;
+    }));
+
+
+  user1SuggestionStream.subscribe(function(user1) {
+    renderUserAtPos(user1, 1);
   });
+
+  user2SuggestionStream.subscribe(function(user2) {
+    renderUserAtPos(user2, 2);
+  });
+
+  user3SuggestionStream.subscribe(function(user3) {
+    renderUserAtPos(user3, 3);
+  });
+
+
 });
 
-function renderThreeUsers(users) {
-  $('#user-1-img').attr('src', users[0].avatar_url);
-  $('#user-1-name').text(users[0].login);
-  $('#user-2-img').attr('src', users[1].avatar_url);
-  $('#user-2-name').text(users[1].login);
-  $('#user-3-img').attr('src', users[2].avatar_url);
-  $('#user-3-name').text(users[2].login);
+function renderUserAtPos(user, pos) {
+  var imgSelector = '#user-' + pos + '-img';
+  var nameSelector = '#user-' + pos + '-name';
+
+  if(user) {
+    $(imgSelector).attr('src', user.avatar_url);
+    $(nameSelector).text(user.login);
+  } else {
+    $(imgSelector).attr('src', '');
+    $(nameSelector).text('loading...');
+  }
 }
