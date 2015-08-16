@@ -4,7 +4,13 @@
   </head>
   <body>
     <h1>Reactive Demo</h1>
-    <p>This is where the body of the demo will render.</p>
+    <h3>Suggested Users To Follow</h3>
+    <p><a href="#" id="refrestAll">Refresh All</a></p>
+    <ul id="userList">
+      <li id="user-1"><img id="user-1-img" src="" width="100" height="100"><span id="user-1-name">loading</span> <a href="#" id="user-1-replace">X</a></li>
+      <li id="user-2"><img id="user-2-img" src="" width="100" height="100"><span id="user-2-name">loading</span> <a href="#" id="user-2-replace">X</a></li>
+      <li id="user-3"><img id="user-3-img" src="" width="100" height="100"><span id="user-3-name">loading</span> <a href="#" id="user-3-replace">X</a></li>
+    </ul>
     <script src="../node_modules/jquery/dist/jquery.js"></script>
     <script src="../node_modules/rx/dist/rx.all.js"></script>
     <script src="index.js"></script>

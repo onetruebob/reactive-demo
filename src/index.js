@@ -12,5 +12,10 @@ requestStream.subscribe(function(requestUrl){
 });
 
 function renderThreeUsers(users) {
-  console.log(users[1], users[2], users[3]);
+  $('#user-1-img').attr('src', users[0].avatar_url);
+  $('#user-1-name').text(users[0].login);
+  $('#user-2-img').attr('src', users[1].avatar_url);
+  $('#user-2-name').text(users[1].login);
+  $('#user-3-img').attr('src', users[2].avatar_url);
+  $('#user-3-name').text(users[2].login);
 }
